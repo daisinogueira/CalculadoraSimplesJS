@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+    <style>
+        body {
+            background-image: url('8184.jpg') ;
+            background-size:100%;
+        }
+        .titulo {
+            background-color:rgb(243, 135, 202);
+            color:rgb(255, 255, 255);
+            width: 308px;
+            height: 50px;
+            font: normal 15pt arial;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 20px 20px 0px 0px;
+            left: 50%;
+            -webkit-box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+            -moz-box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+            box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+        }
+        .result {
+            background-color:rgb(255, 255, 255);
+            color:rgb(117, 117, 117);
+            width: 300px;
+            line-height: 150px;
+            text-align: right;
+            padding-right: 8px;
+
+        }
+        .maior {
+            
+            font: normal 30pt arial;
+            height: 50px;
+        
+        }
+        .menor {
+            font: normal 15pt arial;
+            height: 30px;
+        
+        }
+
+        #calculadora {
+            width: 308px;
+            height: 440px;
+            -webkit-box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+            -moz-box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+            box-shadow: 1px 5px 10px rgba(50, 50, 50, 0.77);
+            border-radius: 0px 0px 20px 20px;
+            margin: auto;
+        }
+        .teclas {
+            font: normal 20pt arial;
+            background-color:rgb(201, 201, 201);
+            color:rgb(255, 255, 255);
+            width: 75px;
+            height: 50px;
+            text-align: center;
+            border: 1px solid;
+            border-color: rgb(255, 255, 255);
+            float: left;
+            padding-top: 20px;
+
+        }
+        .teclas:hover{
+            background-color:rgb(231, 165, 206);
+        }
+        .laranja {
+            background-color:rgb(243, 135, 202);
+            color:rgb(255, 255, 255);
+        }
+        .laranja:hover {
+            background-color:rgb(230, 66, 167);
+        }
+        .zero {
+            width: 152px;
+            border-radius: 0px 0px 0px 20px;
+        }
+        .igual {
+            border-radius: 0px 0px 20px 0px;
+        }
+    
+    </style>
+</head>
+<body>
+
+<center>
+    <div class="titulo">Calculadora Básica JavaScript</div>
+    <div id="calculadora">
+        <div id="result" class="result maior">  </div>
+        <div id="result2" class="result menor">  </div>
+        
+        <div id="ac" class="teclas" name="calc" onclick="limpar()"> AC </div>
+        <div id="sinal" class="teclas" onclick="sinal()"> +/- </div>
+        <div id="porc" class="teclas" onclick="opera('%')"> % </div>
+        <div id="divi" class="teclas laranja" onclick="opera('/')"> &divide; </div>
+
+        <div id="sete" class="teclas" onclick="num(7)"> 7 </div>
+        <div id="oito" class="teclas"  onclick="num(8)"> 8 </div>
+        <div id="nove" class="teclas"  onclick="num(9)"> 9 </div>
+        <div id="mult" class="teclas laranja"  onclick="opera('x')"> X </div>
+
+        <div id="quatro" class="teclas"  onclick="num(4)"> 4 </div>
+        <div id="cinco" class="teclas"  onclick="num(5)"> 5 </div>
+        <div id="seis" class="teclas"  onclick="num(6)"> 6 </div>
+        <div id="menos" class="teclas laranja"  onclick="opera('-')"> - </div>
+
+        <div id="um" class="teclas"  onclick="num(1)"> 1 </div>
+        <div id="dois" class="teclas"  onclick="num(2)"> 2 </div>
+        <div id="tres" class="teclas"  onclick="num(3)"> 3 </div>
+        <div id="mais"  class="teclas laranja" onclick="opera('+')"> + </div>
+
+        <div id="zero" class="teclas borda zero" onclick="num(0)"> 0 </div>
+        <div id="ponto" class="teclas" onclick="num('.')"> . </div>
+        <div id="igual" class="teclas laranja igual" onclick="resul()"> = </div>    
+    </div>
+</center>
+
+
+<script>
+    var num1 = 0
+    var num2 = 0
+    var operador = ''
+    var comecar = 0
+    var qtde = 0
+
+    function num(digito){
+            if(qtde > 13){
+            return;
+        }
+            if(comecar >= 0 && digito !== '.'){
+            document.getElementById("result").innerHTML += digito    
+        } else if(comecar === 0 && digito === '.'){
+            num1 = 0
+            num2 = 0
+            document.getElementById("result").innerHTML += digito
+            comecar++
+        }
+        qtde++;
+    }
+
+    function opera(op) {
+        document.getElementById("result").innerHTML += op 
+        num1 = document.getElementById("result").innerHTML
+        var result1 = (document.getElementById("result").innerHTML);
+        document.getElementById("result2").innerHTML = result1;
+        document.getElementById("result").innerHTML = ''
+
+        operador = op
+        num2 = 0
+        comecar = 0
+        console.log ('Operador: ' + operador)
+        console.log ('Num2: '+num2)
+        console.log ('comecar: '+comecar)
+
+    }
+
+    function resul(){
+        if(num2 === 0){
+            num2 = document.getElementById("result").innerHTML
+            if(num2 === ''){       
+                return
+            }
+        } 
+        console.log ('num2: ' + num2 + 'num1: ' + num1)
+        var result = ''
+        switch(operador){
+            case '%': result = (parseFloat(num1) / parseFloat(100))*num2
+                break;
+            case '/': result = parseFloat(num1) / parseFloat(num2)
+                break;
+            case 'x': result = parseFloat(num1) * parseFloat(num2)
+                break;
+            case '-': result = parseFloat(num1) - parseFloat(num2)
+                break;
+            case '+': result = parseFloat(num1) + parseFloat(num2)       
+                break;
+        } 
+        document.getElementById("result2").innerHTML = ''
+        console.log ('conta: ' + result);
+        comecar = 0
+        num1 = 0
+        num2 = 0 
+        qtde = 0
+        document.getElementById("result").innerHTML = result
+        console.log ('conta2: ' + result);
+    
+    }
+    function limpar(){
+        document.getElementById("result").innerHTML = ''
+        document.getElementById("result2").innerHTML = ''
+        num1 = 0
+        num2 = 0
+        comecar = 0
+        operador = ''
+        qtde = 0
+    }
+
+    function sinal(){
+        document.getElementById("result").innerHTML *= -1
+    }
+
+    function porcent(){
+        num1 = document.getElementById("result").innerHTML
+        document.getElementById("result").innerHTML += '%' 
+        var result1 = (document.getElementById("result").innerHTML);
+        document.getElementById("result2").innerHTML = result1;
+        document.getElementById("result").innerHTML =''
+        var porc = parseFloat(num1) / parseFloat(100)
+        document.getElementById("result").innerHTML = porc
+    
+    }
+        
+</script>    
+</body>
+</html>
